@@ -1,0 +1,49 @@
+/*
+ * @Author: 赵东升
+ * @Date: 2022/11/16
+ */
+.main {
+    width: 100%;
+    height: 80px;
+    background: #242424;
+}
+.content {
+    width: 1200px;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+}
+.content ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+.content ul li {
+    width: 100px;
+    cursor: pointer;
+    text-align: center;
+}
+.content ul li:nth-child(3), .content ul li:nth-child(4) {
+    width: 60px;
+    cursor: pointer;
+}
+.selected {
+    color: #fff;
+    background: #000;
+    height: 80px;
+    line-height: 80px;
+}
+.unSelect {
+    color: #ccc;
+}
+.right {
+    display: flex;
+    align-items: center;
+}
+.box2 {
+    margin: 0 20px;
+}
