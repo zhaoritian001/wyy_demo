@@ -5,10 +5,12 @@
 
 import React from 'react'
 import BannerStore from './banner.Store'
+import LoginStore from "./login.Store";
 
 class RootStore {
     constructor() {
         this.bannerStore = new BannerStore
+        this.loginStore = new LoginStore
     }
 }
 const rootStore = new RootStore()

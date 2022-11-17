@@ -13,11 +13,9 @@ class BannerStore {
         makeAutoObservable(this)
     }
 
-    getBanner = () => {
-        _banner({ type: '0'}).then(res => {
-            this.banners = res.banners
-            console.log('resresresres', res.banners);
-        })
+    getBanner = async () => {
+        const res = await _banner({ type: '0'})
+        this.banners = await res.banners
     }
 
 }

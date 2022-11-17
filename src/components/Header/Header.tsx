@@ -6,6 +6,9 @@ import header from './header.module.css'
 import { Input } from 'antd';
 import React, {useState} from 'react';
 import { useNavigate } from "react-router";
+import avatar from '../../assets/Ellipse.svg'
+import { useStore } from "../../store";
+import { observer } from "mobx-react-lite";
 
 const Header: React.FC = () => {
     const list = [{
@@ -34,6 +37,8 @@ const Header: React.FC = () => {
         path: 'download'
     }]
 
+    const { loginStore } = useStore()
+
     const [selectId, setId] = useState(1)
 
     const navigate = useNavigate()
@@ -43,11 +48,18 @@ const Header: React.FC = () => {
         navigate(path, { replace: true })
     }
 
+    const login = () => {
+        loginStore.getQrCode()
+        console.log('loginStore.qrCodeUrl', loginStore.qrCodeUrl);
+    }
+
+
+
     return(
         <div className={header.main}>
             <div className={header.content}>
                 <div className={header.left}>
-                    <ul>
+                    <ul style={{marginLeft: '-40px'}}>
                         {
                             list.map((item, index) =>
                                 <li key={item.id} onClick={() => onChange(item.id, item.path)} className={index + 1 == selectId ? header.selected: header.unSelect}>{ item.name }</li>
@@ -60,10 +72,12 @@ const Header: React.FC = () => {
                         <Input style={{borderRadius: '50px'}} placeholder="音乐/视频/电台/用户" />
                     </div>
                     <div className={header.box2}>
-                        123
+                        {
+                            loginStore.qrCodeUrl && <img style={{width: '50px',height: '50px'}} src={loginStore.qrCodeUrl} alt=""/>
+                        }
                     </div>
                     <div className={header.box3}>
-                        e3w45
+                        <img src={avatar} onClick={login} alt=""/>
                     </div>
                 </div>
             </div>
@@ -71,4 +85,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header
+export default observer(Header)
