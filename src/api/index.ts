@@ -29,3 +29,12 @@ export function _createQrCode (params: object) {
         params
     })
 }
+
+// 登陆状态
+export function _loginCheck (params: object) {
+    return request({
+        url: '/login/qr/check',
+        method: 'GET',
+        params
+    })
+}

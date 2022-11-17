@@ -4,11 +4,12 @@
  */
 import header from './header.module.css'
 import { Input } from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from "react-router";
 import avatar from '../../assets/Ellipse.svg'
 import { useStore } from "../../store";
 import { observer } from "mobx-react-lite";
+import { Drawer } from 'antd';
 
 const Header: React.FC = () => {
     const list = [{
@@ -48,10 +49,18 @@ const Header: React.FC = () => {
         navigate(path, { replace: true })
     }
 
+    const [open, setOpen] = useState(false);
+
     const login = () => {
         loginStore.getQrCode()
-        console.log('loginStore.qrCodeUrl', loginStore.qrCodeUrl);
+        setOpen(true);
+        setInterval(() => {
+            loginStore.getLoginStatus()
+        }, 1000)
     }
+    const onClose = () => {
+        setOpen(false);
+    };
 
 
 
@@ -72,15 +81,21 @@ const Header: React.FC = () => {
                         <Input style={{borderRadius: '50px'}} placeholder="音乐/视频/电台/用户" />
                     </div>
                     <div className={header.box2}>
-                        {
-                            loginStore.qrCodeUrl && <img style={{width: '50px',height: '50px'}} src={loginStore.qrCodeUrl} alt=""/>
-                        }
+                        <div>1234245</div>
+                        {/*{*/}
+                        {/*    loginStore.qrCodeUrl && <img style={{width: '50px',height: '50px'}} src={loginStore.qrCodeUrl} alt=""/>*/}
+                        {/*}*/}
                     </div>
                     <div className={header.box3}>
                         <img src={avatar} onClick={login} alt=""/>
                     </div>
                 </div>
             </div>
+            <Drawer title="登陆" placement="top" onClose={onClose} open={open}>
+                {
+                    loginStore.qrCodeUrl && <img style={{width: '200px',height: '200px'}} src={loginStore.qrCodeUrl} alt=""/>
+                }
+            </Drawer>
         </div>
     )
 }
